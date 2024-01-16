@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images:{
-        domains:['res.cloudinary.com']
+        domains:['res.cloudinary.com','img.freepik.com','source.unsplash.com','images.unsplash.com','wpamelia.com']
     },
     env:{
         MONGO_URL:"mongodb+srv://mohammadrifathossainrk:12123252@cluster0.dx8itbt.mongodb.net/networknest?retryWrites=true&w=majority",

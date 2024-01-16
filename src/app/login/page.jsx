@@ -73,7 +73,7 @@ const Login = () => {
                     <div className="flex items-center justify-center">
                         <button onClick={handleLogin} type="submit" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full duration-300 flex items-center justify-center">
                             {
-                                loader ? <div className="rounded-full h-[24px] w-[24px] border-[5px] border-l-transparent animate-spin"></div>:<div>Register</div>
+                                loader ? <div className="rounded-full h-[24px] w-[24px] border-[5px] border-l-transparent animate-spin"></div>:<div>Login</div>
                             }
                         </button>
                     </div>

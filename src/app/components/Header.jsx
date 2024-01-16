@@ -9,7 +9,7 @@ import { IoTelescope } from "react-icons/io5";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector} from 'react-redux'
 import { decodeToken } from '@/redux/store/Reducers/AuthReducer';
@@ -21,6 +21,8 @@ const Header = () => {
     const [navOpen,setNavOpen] = useState(false)
     const [searchInput, setSearchInput] = useState('')
     const { userInfo } = useSelector(state => state.auth)
+    const router = useRouter()
+    const [scrollValue,setScrollValue] = useState(0)
 
 
     //----use effects
@@ -30,6 +32,13 @@ const Header = () => {
             dispatch(decodeToken(local))
         }
     },[dispatch])
+
+    useEffect(()=>{
+        window.addEventListener('scroll',(e)=>{
+            const scrollValue = window.scrollY
+            setScrollValue(scrollValue);
+        })
+    },[])
 
     const links = [
         {
@@ -43,11 +52,6 @@ const Header = () => {
             url: "/blog"
         },
         {
-            title:"Inspiration",
-            icon: <ImQuill />,
-            url: "/inspiration"
-        },
-        {
             title:"Authors",
             icon: <FaPenNib  />,
             url: "/authors"
@@ -58,8 +62,16 @@ const Header = () => {
             url: "/about"
         },
     ]
+    
+    //----
+    const handleKey = async (e) =>{
+        if(e.key === 'Enter'){
+            router.push(`/searchcontent/${searchInput}`)
+        }
+    }
     return (
-        <div className='w-full shadow-md bg-white z-[9999]'>
+        <>
+        <div className='relative w-full shadow-md bg-white z-[9999]'>
             <div className='w-full py-2 bg-[#dfdfdf] md-lg:hidden'>
                 <div className='w-[85%] mx-auto flex items-center justify-between'>
                     <div className='flex items-center justify-center text-center gap-5 text-slate-500'>
@@ -75,15 +87,15 @@ const Header = () => {
                     <div className='text-slate-500'>
                         <div className='flex items-center justify-center gap-4'>
                             <div className='flex items-center justify-center gap-4 text-lg'>
-                                <span><FaFacebook/></span>
-                                <span><FaInstagram /></span>
-                                <span><FaLinkedin /></span>
-                                <span><FaTwitter /></span>
+                                <Link href={'https://www.facebook.com/mohammadrifat0007'}><FaFacebook/></Link>
+                                <Link href={'https://www.instagram.com/mohammadrifat0007/'}><FaInstagram /></Link>
+                                <Link href={'https://www.linkedin.com/in/md-rifat-hossain-736a49288/'}><FaLinkedin /></Link>
+                                <Link href={'https://twitter.com/Rifat_hos'}><FaTwitter /></Link>
                             </div>
                             <div className='h-[20px] w-[1px] bg-slate-400'></div>
                             <div>
                                 {
-                                    !userInfo ? <Link href={'/login'} className='flex items-center justify-center gap-2 hover:bg-[#ccc] px-2 rounded duration-300'>
+                                    !userInfo.name  ? <Link href={'/login'} className='flex items-center justify-center gap-2 hover:bg-[#ccc] px-2 rounded duration-300'>
                                         <span><FaLock/></span>
                                         <span>Login</span>
                                     </Link> : <Link href={'/profile'} className='flex items-center justify-center gap-2 hover:bg-[#ccc] px-2 rounded duration-300'>
@@ -103,7 +115,7 @@ const Header = () => {
                             <Image height={0} src='https://res.cloudinary.com/dgbf3zt5b/image/upload/v1704371864/Free-Logo-Maker-Get-Custom-Logo-Designs-in-Minutes-Looka_1_flcbix.png' alt="logo" width={220} className='rounded'/>
                         </Link>
                         <div className='md-lg:hidden flex items-center justify-evenly px-5 py-2 relative '>
-                            <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} className='px-4 py-2 rounded-full border outline-none border-[#0000003d] pr-10 w-[200px]'/>
+                            <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} onKeyUp={handleKey} className='px-4 py-2 rounded-full border outline-none border-[#0000003d] pr-10 w-[200px] text-[#222]'/>
                             <span className='mx-2 text-2xl absolute right-6'><FaSearch/></span>
                         </div>
                         <div className='flex items-center  justify-center gap-10 md-lg:hidden'>
@@ -146,7 +158,7 @@ const Header = () => {
                     </div>
                     <div className='text-slate-500'>
                         {
-                            !userInfo ? <Link href={'/login'} className='flex items-center justify-center gap-2 hover:bg-[#ccc] px-2 rounded duration-300 text-xl'>
+                            !userInfo.name ? <Link href={'/login'} className='flex items-center justify-center gap-2 hover:bg-[#ccc] px-2 rounded duration-300 text-xl'>
                                 <span><FaLock/></span>
                                 <span>Login</span>
                             </Link> : <Link href={'/profile'} className='flex items-center justify-center gap-2 hover:bg-[#ccc] px-2 rounded duration-300 text-xl'>
@@ -185,6 +197,45 @@ const Header = () => {
                 </div>
             </div>
         </div>
+        {/* fixed */}
+        <div className={`fixed w-full shadow-md bg-[#ffffff36] z-[9998] text-white ${scrollValue > 350 ? 'top-0': '-top-56'} duration-200 glass`}>
+            
+            <div className='w-[85%] lg:w-[95%] mx-auto px-4 md:px-2 py-2'>
+                <div className=''>
+                    <div className='flex items-center justify-between'>
+                        <Link href={'/'} className=' relative block'>
+                            <Image height={0} src='https://res.cloudinary.com/dgbf3zt5b/image/upload/v1704371864/Free-Logo-Maker-Get-Custom-Logo-Designs-in-Minutes-Looka_1_flcbix.png' alt="logo" width={220} className='rounded'/>
+                        </Link>
+                        <div className='md-lg:hidden flex items-center justify-evenly px-5 py-2 relative '>
+                            <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} onKeyUp={handleKey} className='px-4 py-2 rounded-full border outline-none border-[#0000003d] pr-10 w-[200px] text-[#222]'/>
+                            <span className='mx-2 text-2xl absolute right-6'><FaSearch/></span>
+                        </div>
+                        <div className='flex items-center  justify-center gap-10 md-lg:hidden'>
+                            <div className='flex items-center justify-center gap-6 uppercase font-[900] text-slate-500'>
+                                {
+                                    links.map((item,i) =>(
+                                        <Link key={i} href={item.url} className=''>
+                                            <span className={` ${item.url  === pathname ? 'text-white font-bold':'hover:text-slate-400'} text-black duration-300`}>{item.title}</span>
+                                        </Link>
+                                    ))
+                                }
+                            </div>
+                            <Link href={'/post'} className='flex  items-center justify-center gap-1 uppercase font-[900] bg-indigo-500 text-white px-2 py-1 rounded'>
+                                <span><FaPen/></span>
+                                <span>Post</span>
+                            </Link>
+                        </div>
+                        <div className='hidden md-lg:flex'>
+                            <div>
+                                <FaBarsStaggered className={`text-2xl text-black cursor-pointer ${!navOpen ? 'block':'hidden'}`} onClick={()=>setNavOpen(true)}/>
+                                <FaTimes className={`text-2xl text-black cursor-pointer ${navOpen ? 'block':'hidden'}`} onClick={()=>setNavOpen(true)}/>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        </>
     )
 }
 

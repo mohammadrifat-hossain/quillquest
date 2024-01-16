@@ -28,3 +28,34 @@ body {
 ::-webkit-scrollbar{
   width: 0;
 }
+
+/* home animate bg */
+.parentDiv{
+  cursor: pointer;
+}
+.childOne{
+  transform: translateY(0);
+  transition: all .5s;
+}
+.childTwo{
+  transform: translateY(40px) skewX(40deg);
+  transition: all .5s;
+}
+.parentDiv:hover .childOne{
+  transform: translateY(-40px) skewX(40deg);
+}
+.parentDiv:hover .childTwo{
+  transform: translateY(0) skewX(0deg);
+}
+
+
+
+.glass{
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.gradientbg{
+  background-image: url('https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg?w=1380&t=st=1704794831~exp=1704795431~hmac=4daf61c01a447e454f9bf853c532a2875c62f24bdd73f67bf2e00ecb42cc9e91');
+}
+

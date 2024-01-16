@@ -1,3 +1,4 @@
+import AuthModel from '@/models/AuthModel'
 import PostModel from '@/models/PostModel'
 import ImageUpload from '@/utils/ImageUploade'
 import connectDB from '@/utils/connectDB'
@@ -11,17 +12,23 @@ export const POST = async (req) =>{
         const userName = form.get('userName')
         const userId = form.get('userId')
         const title = form.get('title')
+        const myId = form.get('myId')
 
         await connectDB()
         const data = await ImageUpload(image,'next_blog_images')
 
-        await PostModel.create({
+        const uploadedData = await PostModel.create({
             userId,
             userName,
             title,
             content: value,
             imageUrl: data.url
         })
+        if(uploadedData){
+            await AuthModel.findOneAndUpdate({_id:myId},{
+                $push: { posts: uploadedData}
+            })
+        }
         return NextResponse.json({message:"upload success",data})
 
     } catch (error) {

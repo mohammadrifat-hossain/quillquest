@@ -6,7 +6,6 @@ import { sign } from 'jsonwebtoken'
 
 export const POST = async (req) =>{
     const {email, password} = await req.json()
-
     try {
         await connectDB()
         const findUser = await AuthModel.findOne({email})
@@ -18,8 +17,12 @@ export const POST = async (req) =>{
                 const token = sign({
                     id:findUser._id,
                     name:findUser.name,
+                    username:findUser.username,
                     email:findUser.email,
                     posts:findUser.posts,
+                    image: findUser.image,
+                    following: findUser.following,
+                    followers: findUser.followers,
                     exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
                 },"RIFATMOHONA")
                 return NextResponse.json({token,message:"login success"})

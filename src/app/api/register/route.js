@@ -25,8 +25,12 @@ export const POST = async (req) =>{
             const token = sign({
                 id:data._id,
                 name:data.name,
+                username:data.username,
                 email:data.email,
                 posts:data.posts,
+                image: data.image,
+                following: data.following,
+                followers: data.followers,
                 exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
             },"RIFATMOHONA")
 

@@ -26,17 +26,18 @@ const PostPage = () => {
     useEffect(()=>{
         if(successMessage){
             toast.success(successMessage)
-            dispatch(messageReset)
+            dispatch(messageReset())
             setValue('')
             setImage('')
             setImageShow('')
+            setTitle('')
             setTimeout(() => {
                 router.push('/')
             }, 1000);
         }
         if(errorMessage){
             toast.success(errorMessage)
-            dispatch(messageReset)
+            dispatch(messageReset())
         }
     },[successMessage,errorMessage,dispatch, router])
 
@@ -51,6 +52,7 @@ const PostPage = () => {
             form.append('userId', userInfo?.id)
             form.append('value',value)
             form.append('title',title)
+            form.append('myId',userInfo?.id)
             dispatch(post_content(form))
         }else{
             toast.error("add image and text")
@@ -69,7 +71,7 @@ const PostPage = () => {
     }
 
     return (
-        <div className='bg-white min-h-screen'>
+        <div className='bg-[#eee] min-h-screen'>
             <Header />
             <div className='max-w-[1600px] mx-auto text-black md:p-0 w-[90%]'>
                 <div className='m-3 flex items-center justify-center '>
