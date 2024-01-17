@@ -145,7 +145,7 @@ const Header = () => {
             <div onClick={()=> setNavOpen(false)} className={`fixed h-full w-full bg-[#00000041] top-0 left-0 ${navOpen ? 'flex':'hidden'}`}>
                 
             </div>
-            <div className={`fixed bg-white w-[300px] h-full duration-200 transition-all top-0 z-[99999] ${navOpen ? 'left-[2px]':'-left-[300px]'}`}>
+            <div className={`fixed bg-white w-[300px] h-full duration-200 transition-all top-0 z-[99999] ${navOpen ? 'left-[0px]':'-left-[300px]'}`}>
                 <div className='py-2 px-4'>
                     <div>
                         <Link href={'/'} className=' relative block'>
@@ -153,7 +153,7 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className='flex items-center justify-evenly px-5 py-2'>
-                        <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} onKeyUp={handleKey} className='px-4 py-2 rounded-full border outline-none border-[#0000003d] text-black'/>
+                        <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} onKeyUp={handleKey} className='px-4 py-2 rounded-full border outline-none border-[#0000003d] text-black sm:w-[200px]'/>
                         <span className='mx-2 text-2xl text-black'><FaSearch/></span>
                     </div>
                     <div className='text-slate-500'>
