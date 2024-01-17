@@ -153,8 +153,8 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className='flex items-center justify-evenly px-5 py-2'>
-                        <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} className='px-4 py-2 rounded-full border outline-none border-[#0000003d]'/>
-                        <span className='mx-2 text-2xl'><FaSearch/></span>
+                        <input type="text" placeholder='Search...' value={searchInput} onChange={(e)=> setSearchInput(e.target.value)} onKeyUp={handleKey} className='px-4 py-2 rounded-full border outline-none border-[#0000003d] text-black'/>
+                        <span className='mx-2 text-2xl text-black'><FaSearch/></span>
                     </div>
                     <div className='text-slate-500'>
                         {

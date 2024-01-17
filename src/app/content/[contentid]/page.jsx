@@ -72,6 +72,9 @@ const Content = ({params:{contentid}}) => {
             router.push('/login')
         }
     }
+    const handleBack = () =>{
+        history.back()
+    }
     return (
         <div className='pb-6 bg-white'>
             <Header />
@@ -89,14 +92,14 @@ const Content = ({params:{contentid}}) => {
                         <motion.div initial={{y:-100,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.5}} className='w-full h-[120px] relative p-2 z-10'>
                             <Image height={600} width={600} alt='banner' src={currentContent?.imageUrl} className='w-full absolute bottom-0 left-0 brightness-50'/>
                             <div className='relative flex items-center justify-start h-full pl-5 '>
-                                <h1><FaChevronLeft className='text-2xl cursor-pointer'/></h1>
+                                <h1><FaChevronLeft className='text-2xl cursor-pointer' onClick={handleBack}/></h1>
                             </div>
                         </motion.div>
                         <motion.div className='text-black'>
                             <motion.div initial={{y:-100,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.5, delay:0.5}} className='bg-[#b3b3b371] p-4 rounded-lg my-1 -z-[1]'>
                                 <div>
-                                    <p>Author: <span>{currentContent?.userName}</span></p>
-                                    <p>Posted: <span>{moment(currentContent?.createdAt).fromNow()}</span></p>
+                                    <p className='flex items-center justify-start gap-1'>Author: <span className='text-base font-bold'>{currentContent?.userName}</span></p>
+                                    <p className='flex items-center justify-start gap-1'>Posted: <span className='text-slate-600'>{moment(currentContent?.createdAt).fromNow()}</span></p>
                                 </div>
                             </motion.div>
                             <div className='m-2'>
@@ -104,7 +107,7 @@ const Content = ({params:{contentid}}) => {
                             </div>
                             <div className='p-2 flex items-center justify-start gap-2'>
                                 <p>Title:</p>
-                                <h1 className='text-xl font-bold'>{currentContent?.title}</h1>
+                                <h1 className='text-xl font-bold text-orange-600'>{currentContent?.title}</h1>
                             </div>
                         </motion.div>
                         <div className='text-black p-1 bg-[#cacaca6e] m-2' dangerouslySetInnerHTML={{ __html: currentContent?.content }}/>
@@ -131,7 +134,7 @@ const Content = ({params:{contentid}}) => {
                                                     <p className='text-[#6464646c]'>{moment(item.addedat).fromNow()}</p>
                                                 </div>
                                                 <div className='bg-white p-2 rounded-lg'>
-                                                    <p>{item.comment}</p>
+                                                    <h4>{item.comment}</h4>
                                                 </div>
                                             </div>
                                         )):<div className='w-full'>
